@@ -1,17 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Neighborhood Map Project</title>
-    <link rel="stylesheet" href="assets/app.css">
+    <link href="https://fonts.googleapis.com/css?family=Marmelad" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/app.css">
 </head>
+
 <body>
     <section>
-        <nav> Neighborhood Map Project</nav>
-        <div class="list">
+        <nav>
+            <img class="menu-icon" src="assets/icon/menu.svg" alt="menu icon">
+            <h1>Neighborhood Map Project</h1>
+        </nav>
+        <div class="menu-list">
+            <div class="menu-heading">
+                <img class="close-icon" src="assets/icon/close.svg" alt="close icon">
+                <h2>List of Places</h2>
+            </div>
 
+            <div class="search-box">
+                <input type="text">
+                <button>Filter</button>
+            </div>
+
+            <ul>
+                <li>somethings</li>
+                <li>somethings</li>
+                <li>somethings</li>
+                <li>somethings</li>
+                <li>somethings</li>
+            </ul>
         </div>
 
         <div id="map">
@@ -19,6 +41,7 @@
         </div>
     </section>
     <script src="resources/knockout-3.4.2.js"></script>
-    <script src="assets/app.js"></script>
+    <script src="assets/js/app.js"></script>
 </body>
+
 </html>

@@ -1,0 +1,81 @@
+body {
+    /* font-size: 12px; */
+    font-family: 'Marmelad', sans-serif;
+}
+
+nav,
+.menu-heading {
+    text-align: center;
+    border-bottom: 1px solid #CCCCCC;
+    display: flex;
+    padding: 0 1rem;
+    justify-content: space-between;
+    color: #000;
+}
+
+.menu-icon {
+    width: 20px;
+    height: 25px;
+    margin-top: 18px;
+}
+
+.close-icon {
+    width: 20px;
+    height: 25px;
+    margin-top: 21px;
+}
+ 
+.menu-list {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #C1B098;
+    overflow-x: hidden;
+    transition: 0.5s;
+    color: #EEEEEE;
+}
+
+.search-box {
+    width: 100%;
+    padding: 0.5rem;
+}
+
+input {
+    width: 70%;
+    border-radius: 5px;
+    height: 2.3rem;
+}
+
+button {
+    background-color: CCCCCC;
+    border-radius: 5px;
+    padding: 14px 17px;
+}
+
+/* For Tablets
+**********************/
+
+@media (min-width: 500px) and (max-width: 999px) {
+}
+
+/* For Desktop
+**********************/
+
+@media (min-width: 1000px) {
+    nav {
+        display: block;
+    }
+
+    .menu-list {
+        width: 25%;
+        padding-top: 2rem;
+    }
+
+    .close-icon,
+    .menu-icon {
+        display: none;
+    }
+}
