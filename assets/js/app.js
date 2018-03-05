@@ -37,3 +37,24 @@ var places = [
         }
     }
 ];
+
+var Place = function(data){
+    this.title = ko.observable(data.title);
+    this.longitude = ko.observable(data.location.lng);
+    this.latitude = ko.observable(data.location.lat);
+    this.location = ko.computed(function (){
+        return this.longitude() + " " + this.latitude();
+    }, this)
+}
+
+// VIEWMODEl
+var ViewModel = function(){
+    var self = this;
+    this.listOfPlaces = ko.observableArray([]);
+
+    places.forEach(function(place){
+        self.listOfPlaces.push(new Place(place));
+    })
+}
+
+ko.applyBindings(new ViewModel())

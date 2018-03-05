@@ -28,12 +28,11 @@
                     <button>Filter</button>
                 </div>
 
-                <ul>
-                    <li>somethings</li>
-                    <li>somethings</li>
-                    <li>somethings</li>
-                    <li>somethings</li>
-                    <li>somethings</li>
+                <ul data-bind="foreach: listOfPlaces">
+                    <li>
+                        <h3 data-bind="text: $data.title"></h3>
+                        <p data-bind="text: $data.location"></p>
+                    </li>
                 </ul>
             </div>
 
