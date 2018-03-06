@@ -148,7 +148,7 @@ var ViewModel = function () {
             window.setTimeout(function() { 
                 place.marker.setAnimation(null);
             }, 800);
-        };
+        }
     };
 
     // HANDLE FILTERING OF INPUT
