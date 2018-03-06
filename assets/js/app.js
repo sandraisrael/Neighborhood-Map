@@ -6,7 +6,8 @@ var places = [
             lat: 25.1985,
             lng: 55.2796
         },
-        description: " "
+        description: " ",
+        // marker: null
     },
     {
         title: 'Burj Khalifa',
@@ -14,7 +15,8 @@ var places = [
             lat: 25.197525,
             lng: 55.274288
         },
-        description: " "
+        description: " ",
+        // marker: null
     },
     {
         title: 'Burj Al Arab',
@@ -22,7 +24,8 @@ var places = [
             lat: 25.141050,
             lng: 55.185978
         },
-        description: " "
+        description: " ",
+        // marker: null
     },
     {
         title: 'Atlantis, The Palm',
@@ -30,7 +33,8 @@ var places = [
             lat: 25.1252128325,
             lng: 55.1169911987
         },
-        description: " "
+        description: " ",
+        // marker: null
     },
     {
         title: 'Dubai Gold Souk',
@@ -38,7 +42,8 @@ var places = [
             lat: 25.269665588,
             lng: 55.29249883
         },
-        description: " "
+        description: " ",
+        // marker: null
     },
     {
         title: 'Ski Dubai',
@@ -46,7 +51,8 @@ var places = [
             lat: 25.116999532,
             lng: 55.192332564
         },
-        description: " "
+        description: " ",
+        // marker: null
     }
 ];
 
@@ -58,6 +64,7 @@ var Place = function (data) {
         return this.longitude() + " " + this.latitude();
     }, this)
     this.description = ko.observable(data.description);
+    this.marker = ko.observable(data.marker);
 }
 
 // VIEWMODEl
@@ -68,6 +75,13 @@ var ViewModel = function () {
     places.forEach(function (place) {
         self.listOfPlaces.push(new Place(place));
     })
+
+    self.hideMarkers = function () {
+        for (i = 0; i < markers.length; i++) {
+            markers[i].setMap(null);
+            // console.log(markers[i].title)
+        }
+    }
 
     this.currentPlace = ko.observable(this.listOfPlaces()[0]);
 
@@ -92,25 +106,45 @@ var ViewModel = function () {
         })
     }
 
+
     // HANDLE FILTERING OF INPUT
     this.query = ko.observable("");
     this.searchResults;
+    this.searchResultsM;
 
     self.filteredRecords = ko.computed(function () {
-        if (!self.query()){
+
+        for (i = 0; i < markers.length; i++) {
+            markers[i].setMap(null);
+        }
+        self.hideMarkers();
+
+        if (!self.query()) {
             searchResults = self.listOfPlaces();
+            searchResultsM = markers;
         } else {
             searchResults = ko.utils.arrayFilter(self.listOfPlaces(), function (place) {
-                
+
                 return (
                     (self.query().length == 0 || place.title().toLowerCase().indexOf(self.query().toLowerCase()) > -1)
                 )
             });
+
+            searchResultsM = ko.utils.arrayFilter(markers, function (marker) {
+
+                return (
+                    (self.query().length == 0 || marker.title.toLowerCase().indexOf(self.query().toLowerCase()) > -1)
+                )
+            });
         }
 
-        return searchResults;
-    });
 
+        for (i = 0; i < searchResultsM.length; i++) {
+            searchResultsM[i].setMap(map);
+        }
+        return searchResults;
+
+    });
 
 }
 

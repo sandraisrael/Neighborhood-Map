@@ -1,4 +1,7 @@
 var map;
+var markers = [];
+
+
 function initMap() {
   // Constructor creates a new map - only center and zoom are required.
   map = new google.maps.Map(document.getElementById('map'), {
@@ -7,11 +10,11 @@ function initMap() {
   });
 
   // array for markers.
-  var markers = [];
+  
   var largeInfowindow = new google.maps.InfoWindow();
   var bounds = new google.maps.LatLngBounds();
 
-  // use places array in app.js to create an array of markers on initialize.
+  // places array in app.js to create an array of markers on initialize.
   for (var i = 0; i < places.length; i++) {
     // Get the position from the places array.
     var position = places[i].location;
@@ -26,9 +29,10 @@ function initMap() {
       animation: google.maps.Animation.DROP,
       id: i
     });
+
     // Push the marker to our array of markers.
     markers.push(marker);
-    console.log(marker.title)
+    places[i].marker = marker;
 
     // Create an onclick event to open an infowindow for each marker.
     marker.addListener('click', function () {
@@ -67,6 +71,7 @@ function populateInfoWindow(marker, infowindow) {
         infowindow.marker = marker;
         infowindow.setContent('<div> <h1>' + marker.title + '</h1>' + apiresult + '</div>');
         infowindow.open(map, marker);
+
         infowindow.addListener('closeclick', function () {
           infowindow.setMarker = null;
         });
