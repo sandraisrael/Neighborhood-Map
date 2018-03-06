@@ -103,12 +103,6 @@ var ViewModel = function () {
    
     this.mapPlaces = places;
 
-    console.log(places)
-    console.log(places[0].title)
-    console.log(self.mapPlaces[0].location)
-    
-    
-
     self.hideMarkers = function () {
         for (i = 0; i < markers.length; i++) {
             markers[i].setMap(null);
@@ -150,13 +144,12 @@ var ViewModel = function () {
         });
         if (place.marker !== null) {
             populateInfoWindow(place.marker, largeInfowindow, place);
-            place.marker.setAnimation(google.maps.Animation.BOUNCE)
+            place.marker.setAnimation(google.maps.Animation.BOUNCE);
             window.setTimeout(function() { 
-                place.marker.setAnimation(null)
+                place.marker.setAnimation(null);
             }, 800);
-        }
+        };
     };
-
 
     // HANDLE FILTERING OF INPUT
     this.query = ko.observable("");
