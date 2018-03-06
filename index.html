@@ -24,14 +24,12 @@
                 </div>
 
                 <div class="search-box">
-                    <input type="text">
-                    <button>Filter</button>
+                    <input type="text" data-bind="value:query, valueUpdate: 'keyup'" >
                 </div>
 
-                <ul data-bind="foreach: listOfPlaces">
-                    <li>
-                        <h3 data-bind="text: $data.title"></h3>
-                        <p data-bind="text: $data.location"></p>
+                <ul data-bind="foreach: filteredRecords">
+                    <li data-bind="text: $data.title, click:$parent.showCurrentPlace">
+                        <p data-bind="text: $data.description"></p>
                     </li>
                 </ul>
             </div>
@@ -42,6 +40,7 @@
 
 
     </section>
+    <script src="resources/jquery-3.3.1.min.js"></script>
     <script src="resources/knockout-3.4.2.js"></script>
     <script src="assets/js/app-map.js"></script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCeulROAi8rgA--bPc8LHbPKFUqzWCDbnc&callback=initMap"></script>
