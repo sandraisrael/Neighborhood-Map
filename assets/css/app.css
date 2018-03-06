@@ -1,5 +1,4 @@
 body {
-    /* font-size: 12px; */
     font-family: 'Marmelad', sans-serif;
     margin: 0;
 }
@@ -48,8 +47,10 @@ input {
     width: 90%;
     border-radius: 5px;
     height: 2.3rem;
-    background-color: rgb(122, 115, 106);
+    background-color: rgba(139, 179, 127, 0.192);
     outline: none;
+    color: #fff;
+    font-size: 1.3rem;
 }
 
 .container {
@@ -70,10 +71,6 @@ ul {
 li {
     border-bottom: 1px solid #ddd;
     padding: 1.2rem 0;
-}
-
-li:hover {
-    background-color: opacity(3)
 }
 
 .attribution {

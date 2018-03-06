@@ -1,5 +1,5 @@
 var map;
- // array for markers
+// array for markers
 var markers = [];
 var marker;
 var infoWindow;
@@ -26,9 +26,14 @@ function initMap() {
     bounds.extend(markers[i].position);
   }
 
-  function initiateMarker(){
+  function initiateMarker() {
     var position = places[i].location;
     var title = places[i].title;
+
+    var defaultIcon = makeMarkerIcon('564787');
+    // Create a "highlighted location" marker color for when the user
+    // mouses over the marker.
+    var highlightedIcon = makeMarkerIcon('DBCBD8');
 
     // Create a marker per location
     marker = new google.maps.Marker({
@@ -47,19 +52,21 @@ function initMap() {
     marker.addListener('click', function () {
       populateInfoWindow(this, largeInfowindow);
     });
+    
+    // Two event listeners - one for mouseover, one for mouseout,
+    // to change the colors back and forth.
+    marker.addListener('mouseover', function () {
+      this.setIcon(highlightedIcon);
+    });
+    marker.addListener('mouseout', function () {
+      this.setIcon(defaultIcon);
+    });
   }
 
   // Extend the boundaries of the map for each marker
   map.fitBounds(bounds);
 }
 
-function toggleBounce() {
-  if (marker.getAnimation() !== null) {
-    marker.setAnimation(null);
-  } else {
-    marker.setAnimation(google.maps.Animation.BOUNCE);
-  }
-}
 
 // Show info window for all markers
 function populateInfoWindow(marker, infowindow) {
@@ -77,11 +84,11 @@ function populateInfoWindow(marker, infowindow) {
     headers: {
       'Api-User-Agent': 'MyCoolTool/1.1 (http://example.com/MyCoolTool/; MyCoolTool@example.com) BasedOnSuperLib/1.4'
     },
-  }).done( function (data) {
+  }).done(function (data) {
     apiresult = data.query.search["0"].snippet;
-  }).fail( function (err) {
+  }).fail(function (err) {
     alert("Failed to Load data from wikipedia api")
-  }).then( function () {
+  }).then(function () {
 
     if (infowindow.marker != marker) {
       infowindow.marker = marker;
@@ -93,6 +100,20 @@ function populateInfoWindow(marker, infowindow) {
       });
     }
   })
+}
+
+// / This function takes in a COLOR, and then creates a new marker
+// icon of that color. The icon will be 21 px wide by 34 high, have an origin
+// of 0, 0 and be anchored at 10, 34).
+function makeMarkerIcon(markerColor) {
+  var markerImage = new google.maps.MarkerImage(
+    'http://chart.googleapis.com/chart?chst=d_map_spin&chld=1.15|0|' + markerColor +
+    '|40|_|%E2%80%A2',
+    new google.maps.Size(21, 34),
+    new google.maps.Point(0, 0),
+    new google.maps.Point(10, 34),
+    new google.maps.Size(21, 34));
+  return markerImage;
 }
 
 function myerrorhandler() {

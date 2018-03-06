@@ -124,7 +124,6 @@ var ViewModel = function () {
         $(".menu-list").css('width','0');
     };
 
-    // this.currentPlace = ko.observable(this.listOfPlaces()[0]);
 
     self.showCurrentPlace = function (place) {
         $.ajax({
@@ -145,12 +144,16 @@ var ViewModel = function () {
                 return doc.body.textContent || "";
              }
             var changetoText = strip(data.query.search["0"].snippet + data.query.search["1"].snippet);
-            this.description= changetoText;
+            this.description = changetoText;
         }).fail(function (err) {
             alert("Something went wrong :(");
         });
         if (place.marker !== null) {
             populateInfoWindow(place.marker, largeInfowindow, place);
+            place.marker.setAnimation(google.maps.Animation.BOUNCE)
+            window.setTimeout(function() { 
+                place.marker.setAnimation(null)
+            }, 800);
         }
     };
 
