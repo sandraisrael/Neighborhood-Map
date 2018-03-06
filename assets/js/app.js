@@ -118,9 +118,22 @@ var ViewModel = function () {
         }
     }
 
+    // Hide and show naviagtion menus in mobile and desktop
+    self.showMenu = function() {
+        $(".menu-list").css('width','60%');
+    }
+
+    self.closeMenu = function() {
+        $(".menu-list").css('width','0');
+    }
+
     this.currentPlace = ko.observable(this.listOfPlaces()[0]);
 
+    // show place description
+    self.showDescription = ko.observable(false);
+
     self.showCurrentPlace = function (place) {
+        self.showDescription(true);
         $.ajax({
             url: 'http://en.wikipedia.org/w/api.php',
             data: {
@@ -134,7 +147,6 @@ var ViewModel = function () {
                 'Api-User-Agent': 'MyCoolTool/1.1 (http://example.com/MyCoolTool/; MyCoolTool@example.com) BasedOnSuperLib/1.4'
             },
         }).done(function (data) {
-            console.log(data);
             function strip(html){
                 var doc = new DOMParser().parseFromString(html, 'text/html');
                 return doc.body.textContent || "";
@@ -142,8 +154,9 @@ var ViewModel = function () {
             var changetoText = strip(data.query.search["0"].snippet + data.query.search["1"].snippet);
             place.description(changetoText)
         }).fail(function (err) {
-            console.log("Something went wrong :(")
+            alert("Something went wrong :(")
         })
+        
     }
 
 
@@ -153,7 +166,6 @@ var ViewModel = function () {
     this.searchResultsM;
 
     self.filteredRecords = ko.computed(function () {
-
         for (i = 0; i < markers.length; i++) {
             markers[i].setMap(null);
         }
@@ -177,8 +189,6 @@ var ViewModel = function () {
                 )
             });
         }
-
-
         for (i = 0; i < searchResultsM.length; i++) {
             searchResultsM[i].setMap(map);
         }
