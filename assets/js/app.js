@@ -149,6 +149,9 @@ var ViewModel = function () {
         }).fail(function (err) {
             alert("Something went wrong :(");
         });
+        if (place.marker !== null) {
+            populateInfoWindow(place.marker, largeInfowindow, place);
+        }
     };
 
 

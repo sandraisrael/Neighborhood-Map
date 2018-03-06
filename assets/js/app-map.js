@@ -3,6 +3,7 @@ var map;
 var markers = [];
 var marker;
 var infoWindow;
+var largeInfowindow;
 
 
 
@@ -13,7 +14,7 @@ function initMap() {
     zoom: 15,
   });
 
-  var largeInfowindow = new google.maps.InfoWindow({
+  largeInfowindow = new google.maps.InfoWindow({
     maxWidth: 200
   });
   var bounds = new google.maps.LatLngBounds();
