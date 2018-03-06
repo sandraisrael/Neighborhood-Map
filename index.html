@@ -30,13 +30,15 @@
                 <ul data-bind="foreach: filteredRecords">
                     <li id="list-item" data-bind="click:$parent.showCurrentPlace">
                         <h3 data-bind="text: $data.title"></h3>
-                        <p data-bind="visible: $parent.showDescription, text: $data.description"></p>
+                        <p data-bind="text: $data.description"></p>
                     </li>
                 </ul>
+
                 <div class="attribution">
                     <small>Some data on this app is provided by <em>wikipedia.org</em>
                     </small>
                 </div>
+
             </div>
 
             <div id="map">

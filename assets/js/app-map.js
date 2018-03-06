@@ -1,28 +1,36 @@
 var map;
+ // array for markers
 var markers = [];
+var marker;
+var infoWindow;
+
 
 
 function initMap() {
-  // Constructor creates a new map - only center and zoom are required.
+  // Constructor creates a new map
   map = new google.maps.Map(document.getElementById('map'), {
     center: { lat: 25.199514, lng: 55.277397 },
     zoom: 15,
   });
 
-  // array for markers.
-
-  var largeInfowindow = new google.maps.InfoWindow();
+  var largeInfowindow = new google.maps.InfoWindow({
+    maxWidth: 200
+  });
   var bounds = new google.maps.LatLngBounds();
 
   // places array in app.js to create an array of markers on initialize.
   for (var i = 0; i < places.length; i++) {
     // Get the position from the places array.
+    initiateMarker(places[i]);
+    bounds.extend(markers[i].position);
+  }
+
+  function initiateMarker(){
     var position = places[i].location;
     var title = places[i].title;
 
-
-    // Create a marker per location, and put into markers array.
-    var marker = new google.maps.Marker({
+    // Create a marker per location
+    marker = new google.maps.Marker({
       map: map,
       position: position,
       title: title,
@@ -36,13 +44,20 @@ function initMap() {
 
     // Create an onclick event to open an infowindow for each marker.
     marker.addListener('click', function () {
-      // toggleBounce();
       populateInfoWindow(this, largeInfowindow);
     });
-    bounds.extend(markers[i].position);
   }
+
   // Extend the boundaries of the map for each marker
   map.fitBounds(bounds);
+}
+
+function toggleBounce() {
+  if (marker.getAnimation() !== null) {
+    marker.setAnimation(null);
+  } else {
+    marker.setAnimation(google.maps.Animation.BOUNCE);
+  }
 }
 
 // Show info window for all markers
@@ -61,12 +76,11 @@ function populateInfoWindow(marker, infowindow) {
     headers: {
       'Api-User-Agent': 'MyCoolTool/1.1 (http://example.com/MyCoolTool/; MyCoolTool@example.com) BasedOnSuperLib/1.4'
     },
-  }).done(function (data) {
-    console.log(data.query.search["0"].snippet);
+  }).done( function (data) {
     apiresult = data.query.search["0"].snippet;
-  }).fail(function (err) {
+  }).fail( function (err) {
     alert("Failed to Load data from wikipedia api")
-  }).then(function () {
+  }).then( function () {
 
     if (infowindow.marker != marker) {
       infowindow.marker = marker;
@@ -78,11 +92,8 @@ function populateInfoWindow(marker, infowindow) {
       });
     }
   })
-function toggleBounce() {
-  if (this.marker.getAnimation() !== null) {
-    this.marker.setAnimation(null);
-  } else {
-    marker.setAnimation(google.maps.Animation.BOUNCE);
-  }
 }
+
+function myerrorhandler() {
+  alert("Hi! There's a problem loading Google Maps API");
 }
