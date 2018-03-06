@@ -178,7 +178,7 @@ var ViewModel = function () {
 
                 return (
                     (self.query().length === 0 || place.title().toLowerCase().indexOf(self.query().toLowerCase()) > -1)
-                )
+                );
             });
 
             searchResultsM = ko.utils.arrayFilter(markers, function (marker) {
