@@ -98,10 +98,10 @@ var Place = function (data) {
     this.latitude = ko.observable(data.location.lat);
     this.location = ko.computed(function () {
         return this.longitude() + " " + this.latitude();
-    }, this)
+    }, this);
     this.description = ko.observable(data.description);
     this.marker = ko.observable(data.marker);
-}
+};
 
 // VIEWMODEl
 var ViewModel = function () {
@@ -110,22 +110,22 @@ var ViewModel = function () {
 
     places.forEach(function (place) {
         self.listOfPlaces.push(new Place(place));
-    })
+    });
 
     self.hideMarkers = function () {
         for (i = 0; i < markers.length; i++) {
             markers[i].setMap(null);
         }
-    }
+    };
 
     // Hide and show naviagtion menus in mobile and desktop
     self.showMenu = function() {
         $(".menu-list").css('width','60%');
-    }
+    };
 
     self.closeMenu = function() {
         $(".menu-list").css('width','0');
-    }
+    };
 
     this.currentPlace = ko.observable(this.listOfPlaces()[0]);
 
@@ -152,12 +152,11 @@ var ViewModel = function () {
                 return doc.body.textContent || "";
              }
             var changetoText = strip(data.query.search["0"].snippet + data.query.search["1"].snippet);
-            place.description(changetoText)
+            place.description(changetoText);
         }).fail(function (err) {
-            alert("Something went wrong :(")
-        })
-        
-    }
+            alert("Something went wrong :(");
+        });
+    };
 
 
     // HANDLE FILTERING OF INPUT
@@ -178,15 +177,15 @@ var ViewModel = function () {
             searchResults = ko.utils.arrayFilter(self.listOfPlaces(), function (place) {
 
                 return (
-                    (self.query().length == 0 || place.title().toLowerCase().indexOf(self.query().toLowerCase()) > -1)
+                    (self.query().length === 0 || place.title().toLowerCase().indexOf(self.query().toLowerCase()) > -1)
                 )
             });
 
             searchResultsM = ko.utils.arrayFilter(markers, function (marker) {
 
                 return (
-                    (self.query().length == 0 || marker.title.toLowerCase().indexOf(self.query().toLowerCase()) > -1)
-                )
+                    (self.query().length === 0 || marker.title.toLowerCase().indexOf(self.query().toLowerCase()) > -1)
+                );
             });
         }
         for (i = 0; i < searchResultsM.length; i++) {
@@ -196,6 +195,6 @@ var ViewModel = function () {
 
     });
 
-}
+};
 
-ko.applyBindings(new ViewModel())
+ko.applyBindings(new ViewModel());
