@@ -10,7 +10,7 @@ function initMap() {
   });
 
   // array for markers.
-  
+
   var largeInfowindow = new google.maps.InfoWindow();
   var bounds = new google.maps.LatLngBounds();
 
@@ -36,6 +36,7 @@ function initMap() {
 
     // Create an onclick event to open an infowindow for each marker.
     marker.addListener('click', function () {
+      // toggleBounce();
       populateInfoWindow(this, largeInfowindow);
     });
     bounds.extend(markers[i].position);
@@ -64,19 +65,24 @@ function populateInfoWindow(marker, infowindow) {
     console.log(data.query.search["0"].snippet);
     apiresult = data.query.search["0"].snippet;
   }).fail(function (err) {
-      alert("Failed to Load data from wikipedia api")
-    }).then(function () {
+    alert("Failed to Load data from wikipedia api")
+  }).then(function () {
 
-      if (infowindow.marker != marker) {
-        infowindow.marker = marker;
-        infowindow.setContent('<div> <h1>' + marker.title + '</h1>' + apiresult + '</div>');
-        infowindow.open(map, marker);
+    if (infowindow.marker != marker) {
+      infowindow.marker = marker;
+      infowindow.setContent('<div> <h1>' + marker.title + '</h1>' + apiresult + '</div>');
+      infowindow.open(map, marker);
 
-        infowindow.addListener('closeclick', function () {
-          infowindow.setMarker = null;
-        });
-      }
-    })
-
+      infowindow.addListener('closeclick', function () {
+        infowindow.setMarker = null;
+      });
+    }
+  })
+function toggleBounce() {
+  if (this.marker.getAnimation() !== null) {
+    this.marker.setAnimation(null);
+  } else {
+    marker.setAnimation(google.maps.Animation.BOUNCE);
+  }
 }
-
+}

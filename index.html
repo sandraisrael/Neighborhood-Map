@@ -28,7 +28,8 @@
                 </div>
 
                 <ul data-bind="foreach: filteredRecords">
-                    <li data-bind="text: $data.title, click:$parent.showCurrentPlace">
+                    <li id="list-item" data-bind="click:$parent.showCurrentPlace">
+                        <h3 data-bind="text: $data.title"></h3>
                         <p data-bind="text: $data.description"></p>
                     </li>
                 </ul>

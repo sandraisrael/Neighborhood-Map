@@ -53,6 +53,42 @@ var places = [
         },
         description: " ",
         // marker: null
+    },
+    {
+        title: 'Dubai Zoo',
+        location: {
+            lat: 25.222382,
+            lng: 55.256558
+        },
+        description: " ",
+        // marker: null
+    },
+    {
+        title: 'Dubai Motor City',
+        location: {
+            lat: 25.0450,
+            lng: 55.2397
+        },
+        description: " ",
+        // marker: null
+    },
+    {
+        title: 'Dubai International Airport',
+        location: {
+            lat: 25.2532,
+            lng: 55.3657
+        },
+        description: " ",
+        // marker: null
+    },
+    {
+        title: 'The Marina Torch',
+        location: {
+            lat: 25.087942,
+            lng: 55.147499
+        },
+        description: " ",
+        // marker: null
     }
 ];
 
@@ -79,7 +115,6 @@ var ViewModel = function () {
     self.hideMarkers = function () {
         for (i = 0; i < markers.length; i++) {
             markers[i].setMap(null);
-            // console.log(markers[i].title)
         }
     }
 
@@ -87,7 +122,7 @@ var ViewModel = function () {
 
     self.showCurrentPlace = function (place) {
         $.ajax({
-            url: 'https://en.wikipedia.org/w/api.php',
+            url: 'http://en.wikipedia.org/w/api.php',
             data: {
                 format: "json",
                 action: "query",
@@ -99,8 +134,13 @@ var ViewModel = function () {
                 'Api-User-Agent': 'MyCoolTool/1.1 (http://example.com/MyCoolTool/; MyCoolTool@example.com) BasedOnSuperLib/1.4'
             },
         }).done(function (data) {
-            console.log(data.query.search["0"].snippet);
-            place.description(data.query.search["0"].snippet)
+            console.log(data);
+            function strip(html){
+                var doc = new DOMParser().parseFromString(html, 'text/html');
+                return doc.body.textContent || "";
+             }
+            var changetoText = strip(data.query.search["0"].snippet + data.query.search["1"].snippet);
+            place.description(changetoText)
         }).fail(function (err) {
             console.log("Something went wrong :(")
         })
