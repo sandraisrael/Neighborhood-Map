@@ -13,27 +13,30 @@
 <body>
     <section>
         <nav>
-            <img class="menu-icon" src="assets/icon/menu.svg" alt="menu icon">
+            <img data-bind="click:showMenu" class="menu-icon" src="assets/icon/menu.svg" alt="menu icon">
             <h1>Neighborhood Map Project</h1>
         </nav>
         <div class="container">
             <div class="menu-list">
                 <div class="menu-heading">
-                    <img class="close-icon" src="assets/icon/close.svg" alt="close icon">
+                    <img data-bind="click:closeMenu" class="close-icon" src="assets/icon/close.svg" alt="close icon">
                     <h2>List of Places</h2>
                 </div>
 
                 <div class="search-box">
-                    <input type="text" data-bind="value:query, valueUpdate: 'keyup'" >
+                    <input type="text" data-bind="value:query, valueUpdate: 'keyup'">
                 </div>
 
                 <ul data-bind="foreach: filteredRecords">
                     <li id="list-item" data-bind="click:$parent.showCurrentPlace">
                         <h3 data-bind="text: $data.title"></h3>
-                        <p data-bind="text: $data.description"></p>
+                        <p data-bind="visible: $parent.showDescription, text: $data.description"></p>
                     </li>
                 </ul>
-
+                <div class="attribution">
+                    <small>Some data on this app is provided by <em>wikipedia.org</em>
+                    </small>
+                </div>
             </div>
 
             <div id="map">

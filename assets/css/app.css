@@ -64,7 +64,7 @@ input {
 
 ul {
     list-style-type: none;
-    padding-left: 1rem; 
+    padding-left: 0.5rem
 }
 
 li {
@@ -74,6 +74,10 @@ li {
 
 li:hover {
     background-color: opacity(3)
+}
+
+.attribution {
+    padding: 1rem;
 }
 
 /* For Tablets
@@ -112,5 +116,9 @@ li:hover {
     .close-icon,
     .menu-icon {
         display: none;
+    }
+
+    ul {
+        padding-left: 1rem
     }
 }
