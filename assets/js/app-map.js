@@ -53,7 +53,7 @@ function initMap() {
     marker.addListener('click', function () {
       populateInfoWindow(this, largeInfowindow);
       
-      var self = this
+      var self = this;
       this.setAnimation(google.maps.Animation.BOUNCE);
       window.setTimeout(function (marker) {
         self.setAnimation(null);
