@@ -41,7 +41,8 @@ function initMap() {
       position: position,
       title: title,
       animation: google.maps.Animation.DROP,
-      id: i
+      id: i,
+      icon: defaultIcon,
     });
 
     // Push the marker to our array of markers.
@@ -51,8 +52,14 @@ function initMap() {
     // Create an onclick event to open an infowindow for each marker.
     marker.addListener('click', function () {
       populateInfoWindow(this, largeInfowindow);
+      
+      var self = this
+      this.setAnimation(google.maps.Animation.BOUNCE);
+      window.setTimeout(function (marker) {
+        self.setAnimation(null);
+      }, 800);
     });
-    
+
     // Two event listeners - one for mouseover, one for mouseout,
     // to change the colors back and forth.
     marker.addListener('mouseover', function () {
